@@ -51,7 +51,12 @@ const Timeline = (() => {
       activeBlocks.push(b);
       if (!first) first = b;
     });
-    if (first) first.scrollIntoView({ inline: 'nearest', behavior: 'smooth', block: 'nearest' });
+    if (first) {
+      const panel = containerEl.parentElement;
+      const savedScrollTop = panel.scrollTop;
+      first.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+      panel.scrollTop = savedScrollTop;
+    }
   }
 
   // ── Builders ──────────────────────────────────────────────────────────────────
