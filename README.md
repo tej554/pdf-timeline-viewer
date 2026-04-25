@@ -76,6 +76,8 @@ The timeline renders automatically once both files are loaded.
 
 ## Categories File Format
 
+> **New to this?** See the [CSV Builder Guide](CSV_GUIDE.md) for a step-by-step walkthrough, a named colour palette you can pick from, and a copy-paste template.
+
 The categories file tells the app which pages belong to which group and what colour to use.
 
 ### Required columns
