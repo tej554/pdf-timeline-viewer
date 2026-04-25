@@ -8,8 +8,11 @@ No installation, no server, no data leaves your machine — everything runs loca
 
 ## Screenshots
 
-**Homepage — load a PDF and categories file to get started**
-![Homepage](screenshots/Homepage.png)
+**Homepage — initial state before loading any files**
+![Homepage Before PDF Load](screenshots/Homepage_Before_PDF_Load.png)
+
+**Homepage — after loading a PDF and categories file**
+![Homepage After PDF Load](screenshots/Homepage_After_PDF_Load.png)
 
 **Timeline View — swimlane overview of all categories across pages**
 ![Timeline View](screenshots/Timeline_View.png)
