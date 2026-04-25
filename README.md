@@ -1,8 +1,12 @@
 # PDF Timeline Viewer
 
-A browser-based tool that overlays a **swimlane timeline** onto any multi-page PDF. Each swimlane represents a category of pages (e.g. a legal topic, a document section, a project phase). Clicking a block in the timeline jumps the PDF to that page instantly.
+Have you ever received a long PDF — a court case, a project file, a medical record — and struggled to find which pages belong to which topic? **PDF Timeline Viewer** solves that.
 
-No installation, no server, no data leaves your machine — everything runs locally in your browser.
+You provide a PDF and a simple spreadsheet that maps page numbers to categories. The app displays your PDF with a **colour-coded swimlane timeline** underneath it. Each row in the timeline is a category; coloured blocks show exactly which pages belong to it. Click any block to jump straight to that page.
+
+- No installation required
+- No internet connection needed after download
+- Nothing leaves your computer — all processing happens in your browser
 
 ---
 
@@ -25,70 +29,94 @@ No installation, no server, no data leaves your machine — everything runs loca
 
 ---
 
-## Features
+## Who is this for?
 
-- **Swimlane timeline** — one row per category, coloured blocks for matching pages
-- **Click any block** to jump to that page in the PDF
-- **Active page highlight** — current page is outlined across all swimlanes
-- **Resize panels** — drag the horizontal bar to adjust timeline height; drag the sidebar edge to adjust its width
-- **Zoom controls** — fit-page, fit-width, zoom in/out, keyboard shortcuts
-- **Keyboard navigation** — `←` / `→` arrow keys, `Home`, `End`
-- **Drag & drop** — drop a PDF or CSV/Excel file anywhere on the window
-- **Date ranges** — shown under each category label if provided in the data file
-- **No dependencies to install** — all libraries are bundled in `lib/`
+- **Lawyers and paralegals** reviewing multi-document court bundles
+- **Researchers** navigating long reports or archival records
+- **Project managers** working through phased documentation
+- **Anyone** who needs to quickly find and jump between sections in a large PDF
 
 ---
 
-## Quick Start
+## Step 1 — Download the app
 
-### 1. Open the app
+You do not need to install anything. Just download the files and open them in your browser.
 
-**Option A — double-click** `index.html` (works in most browsers for local files).
+**On GitHub:**
 
-**Option B — local server** (recommended, avoids browser file-access restrictions):
+1. Click the green **Code** button near the top of this page
+2. Click **Download ZIP**
+3. Once downloaded, unzip the folder (double-click it on Mac or Windows)
+4. Open the unzipped folder — you will see `index.html`, `app.js`, `style.css`, and others
+
+---
+
+## Step 2 — Open the app
+
+**Double-click `index.html`** — this opens the app in your default browser.
+
+> **If the PDF does not display after loading** (blank white area), your browser is blocking local file access. Use the local server method below instead — it takes under a minute.
+
+**Local server method (fixes the blank PDF issue):**
+
+If you have Python installed (it comes pre-installed on Mac):
 
 ```bash
-# Python (built-in)
+# Open Terminal, navigate to the unzipped folder, then run:
 python3 -m http.server 8765
-# then open http://localhost:8765
+```
 
-# Node.js (npx, no install needed)
+Then open your browser and go to: `http://localhost:8765`
+
+If you have Node.js installed:
+
+```bash
 npx serve .
 ```
 
-### 2. Load a PDF
+---
 
-Click **Load PDF** in the toolbar, or drag and drop a `.pdf` file anywhere on the window.
+## Step 3 — Try the sample files first
 
-### 3. Load a categories file
+Before using your own PDF, try the included sample files to make sure everything is working.
 
-Click **Load Categories** and choose a `.csv` or `.xlsx` / `.xls` file.
+1. Click **Load PDF** in the toolbar → select `sample/PDF2_Disputed_Inheritance_Court_Case.pdf`
+2. Click **Load Categories** → select `sample/PDF2_Disputed_Inheritance_Court_Case.csv`
+3. The swimlane timeline should appear immediately below the PDF
 
-The timeline renders automatically once both files are loaded.
+You should see 6 coloured rows (Land Records, Legal Heir Certificate, Revenue/Mutation, Court Filings, Forensic Evidence, Case Summary). Click any coloured block to jump to that page.
+
+A second sample (`sample/sample.pdf` + `sample/sample.csv`) is a generic 60-page document with 6 sections — useful for testing page ranges.
 
 ---
 
-## Categories File Format
+## Step 4 — Use with your own PDF
 
-> **New to this?** See the [CSV Builder Guide](CSV_GUIDE.md) for a step-by-step walkthrough, a named colour palette you can pick from, and a copy-paste template.
+### 4a. Open your PDF
 
-The categories file tells the app which pages belong to which group and what colour to use.
+Click **Load PDF** and select your `.pdf` file, or drag and drop it anywhere on the window.
 
-### Required columns
+### 4b. Create a categories file
+
+You need a spreadsheet (CSV or Excel) that tells the app which pages belong to which category.
+
+> **New to this?** The [CSV Builder Guide](CSV_GUIDE.md) walks you through it step by step with a colour palette, examples, and a copy-paste template. No coding knowledge required.
+
+**Minimum required columns:**
 
 | Column | Description | Example |
 |--------|-------------|---------|
-| `category` | Label shown in the swimlane | `Court Filings` |
-| `color` | Hex colour for this lane | `#E67E22` |
-| `pages` | Comma-separated page numbers or ranges | `4,5,7` or `10-20` or `1,3,10-15,22` |
+| `category` | Label for the swimlane row | `Court Filings` |
+| `color` | Hex colour code | `#E67E22` |
+| `pages` | Page numbers, comma-separated or as a range | `4,5,7` or `10-20` |
 
-### Optional column
+**Optional column:**
 
 | Column | Description | Example |
 |--------|-------------|---------|
 | `date_range` | Date label shown under the category name | `Sep 2009 – Nov 2019` |
 
-### CSV example
+**Example CSV:**
 
 ```csv
 category,color,pages,date_range
@@ -102,36 +130,73 @@ Case Summary,#1ABC9C,"9","2024"
 
 > **Tip:** Pages not covered by any category appear as dim grey blocks — useful for spotting uncategorised pages at a glance.
 
-### Excel (.xlsx) example
+### 4c. Load your categories file
 
-Use the same column names as headers in row 1. Pages with commas (e.g. `4,5,7`) should be in a single cell.
+Click **Load Categories** and select your `.csv` or `.xlsx` / `.xls` file. The timeline renders automatically.
+
+---
+
+## Navigating the timeline
+
+| Action | How |
+|--------|-----|
+| Jump to a page | Click any coloured block in the timeline |
+| Next / previous page | `→` / `←` arrow keys, or click the arrows in the toolbar |
+| First / last page | `Home` / `End` keys |
+| Zoom in / out | `Ctrl` + `+` / `Ctrl` + `-` |
+| Fit page to screen | `Ctrl` + `0` |
+| Resize the timeline panel | Drag the horizontal bar between the PDF and the timeline |
+| Resize the category sidebar | Drag the right edge of the category label column |
+| Load files without clicking | Drag and drop a PDF or CSV anywhere on the window |
+
+The current page is highlighted with an outline across all swimlane rows so you always know where you are.
+
+---
+
+## Features
+
+- **Swimlane timeline** — one colour-coded row per category, coloured blocks for matching pages
+- **Click any block** to jump to that page in the PDF
+- **Active page highlight** — current page is outlined across all swimlanes
+- **Resize panels** — drag the horizontal bar to adjust timeline height; drag the sidebar edge to adjust width
+- **Zoom controls** — fit-page, fit-width, zoom in/out, keyboard shortcuts
+- **Keyboard navigation** — arrow keys, `Home`, `End`
+- **Drag & drop** — drop a PDF or CSV/Excel anywhere on the window
+- **Date ranges** — shown under each category label if provided
+- **No dependencies to install** — all libraries are bundled in `lib/`
+
+---
+
+## Troubleshooting
+
+**The PDF area is blank after loading**
+Your browser is blocking local file access. Open the app using the local server method in Step 2 instead of double-clicking `index.html`.
+
+**The timeline does not appear after loading the CSV**
+- Check that your CSV has the exact column headers: `category`, `color`, `pages` (all lowercase)
+- Make sure every colour starts with `#` (e.g. `#2E75B6`, not `2E75B6`)
+- Wrap page numbers in double quotes if they contain commas: `"4,5,7"` not `4,5,7`
+- See the [CSV Builder Guide](CSV_GUIDE.md) for a full checklist
+
+**The app says "Missing column"**
+One of the required columns (`category`, `color`, `pages`) has a typo or extra space in the header. Open your file, fix the header row, and reload.
+
+**My Excel file is not accepted**
+Save it as `.xlsx` (not `.xls` from older Excel versions if possible) or export it as CSV.
+
+**Password-protected PDFs do not open**
+Remove the password protection first using your PDF software, then load the file.
 
 ---
 
 ## Sample Files
 
-The `sample/` folder contains two ready-to-use examples:
-
 | File | Description |
 |------|-------------|
 | `sample/sample.pdf` | Generic 60-page document |
 | `sample/sample.csv` | 6 categories (Introduction, Background, Methodology, Results, Discussion, Appendix) |
-| `sample/PDF2_Disputed_Inheritance_Court_Case.pdf` | 9-page legal court case document |
-| `sample/PDF2_Disputed_Inheritance_Court_Case.csv` | 6 legal categories (Land Records, Legal Heir Certificate, Revenue/Mutation, Court Filings, Forensic Evidence, Case Summary) |
-
----
-
-## Keyboard Shortcuts
-
-| Key | Action |
-|-----|--------|
-| `←` / `↑` | Previous page |
-| `→` / `↓` | Next page |
-| `Home` | First page |
-| `End` | Last page |
-| `Ctrl` + `+` | Zoom in |
-| `Ctrl` + `-` | Zoom out |
-| `Ctrl` + `0` | Fit page |
+| `sample/PDF2_Disputed_Inheritance_Court_Case.pdf` | 9-page legal court case |
+| `sample/PDF2_Disputed_Inheritance_Court_Case.csv` | 6 legal categories with date ranges |
 
 ---
 
@@ -145,6 +210,7 @@ pdf-timeline-viewer/
 ├── parser.js           # CSV / Excel → normalised categories array
 ├── pdf-viewer.js       # PDF.js wrapper (render, zoom, preload)
 ├── timeline.js         # Swimlane DOM builder and active-page sync
+├── CSV_GUIDE.md        # Step-by-step guide to building the categories file
 ├── lib/
 │   ├── pdf.min.js          # PDF.js (Mozilla)
 │   ├── pdf.worker.min.js   # PDF.js worker
@@ -162,8 +228,6 @@ pdf-timeline-viewer/
 ## Browser Support
 
 Works in any modern browser: Chrome, Firefox, Safari, Edge (2020+).
-
-> Password-protected PDFs are not supported.
 
 ---
 
