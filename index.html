@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Timeline Viewer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="drop-overlay" class="hidden">
+    <div class="drop-message">Drop PDF or CSV / Excel here</div>
+  </div>
+
+  <!-- Top toolbar -->
+  <header id="toolbar">
+    <div class="toolbar-left">
+      <button id="btn-load-pdf">Load PDF</button>
+      <button id="btn-load-csv">Load Categories</button>
+      <input type="file" id="input-pdf" accept=".pdf" hidden />
+      <input type="file" id="input-csv" accept=".csv,.xlsx,.xls" hidden />
+    </div>
+    <div class="toolbar-center">
+      <span id="pdf-filename" class="filename-label">No PDF loaded</span>
+      <span class="sep">|</span>
+      <span id="csv-filename" class="filename-label">No categories loaded</span>
+    </div>
+    <div class="toolbar-right"></div>
+  </header>
+
+  <!-- App body: sidebar + PDF panel side by side -->
+  <div id="app-body">
+
+    <!-- Left sidebar: category index -->
+    <aside id="sidebar">
+      <div id="sidebar-header">
+        <span id="sidebar-title">SECTIONS</span>
+        <span id="sidebar-pagecount"></span>
+      </div>
+      <div id="sidebar-content">
+        <div id="sidebar-placeholder">
+          Load a PDF and a categories file to see the section index.
+        </div>
+      </div>
+    </aside>
+
+    <!-- Drag handle to resize sidebar width -->
+    <div id="sidebar-resize" title="Drag to resize sidebar"></div>
+
+    <!-- PDF viewer -->
+    <main id="pdf-panel">
+      <div id="pdf-canvas-container">
+        <div id="pdf-placeholder">
+          <p>Drag &amp; drop a <strong>PDF</strong> here,<br/>or click <strong>Load PDF</strong> above.</p>
+          <p class="hint">Then load a <strong>CSV / Excel</strong> categories file to see the section index.</p>
+        </div>
+        <canvas id="pdf-canvas" class="hidden"></canvas>
+        <div id="pdf-error" class="hidden error-box"></div>
+      </div>
+
+      <!-- Floating PDF viewer controls -->
+      <div id="pdf-controls" class="hidden">
+        <div class="pdfctrl-group">
+          <button id="btn-prev"  class="pdfctrl-btn icon-btn" title="Previous page (← key)" disabled>&#8592;</button>
+          <input  id="page-input" class="pdfctrl-page-input" type="number" min="1" value="1" disabled />
+          <span   class="pdfctrl-label">/ <span id="total-pages">–</span></span>
+          <button id="btn-next"  class="pdfctrl-btn icon-btn" title="Next page (→ key)" disabled>&#8594;</button>
+        </div>
+        <div class="pdfctrl-divider"></div>
+        <div class="pdfctrl-group">
+          <button id="btn-zoom-out" class="pdfctrl-btn icon-btn" title="Zoom out (Ctrl −)" disabled>&#8722;</button>
+          <span   id="zoom-level"   class="pdfctrl-zoom-label">–</span>
+          <button id="btn-zoom-in"  class="pdfctrl-btn icon-btn" title="Zoom in (Ctrl +)"  disabled>&#43;</button>
+        </div>
+        <div class="pdfctrl-divider"></div>
+        <div class="pdfctrl-group">
+          <button id="btn-fit-page"  class="pdfctrl-btn fit-btn active" title="Fit page (Ctrl 0)" disabled>&#9633; Page</button>
+          <button id="btn-fit-width" class="pdfctrl-btn fit-btn"        title="Fit width"          disabled>&#8596; Width</button>
+        </div>
+      </div>
+    </main>
+
+  </div><!-- #app-body -->
+
+  <!-- Drag handle to resize timeline height -->
+  <div id="resize-handle" title="Drag to resize timeline"></div>
+
+  <!-- Bottom timeline panel -->
+  <div id="timeline-panel">
+    <div id="timeline-container">
+      <div id="timeline-placeholder">Load a PDF and a categories file to see the timeline.</div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden"></div>
+
+  <script src="lib/pdf.min.js"></script>
+  <script src="lib/papaparse.min.js"></script>
+  <script src="lib/xlsx.full.min.js"></script>
+  <script src="parser.js"></script>
+  <script src="pdf-viewer.js"></script>
+  <script src="timeline.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
