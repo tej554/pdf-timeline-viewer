@@ -6,28 +6,19 @@ No installation, no server, no data leaves your machine — everything runs loca
 
 ---
 
-## Screenshot
+## Screenshots
 
-> Load a PDF + categories file to see the swimlane timeline rendered below the document.
+**Homepage — load a PDF and categories file to get started**
+![Homepage](screenshots/Homepage.png)
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  Load PDF   Load Categories  |  file.pdf | cats.csv     │  ← Toolbar
-├──────────┬──────────────────────────────────────────────┤
-│ SECTIONS │                                              │
-│          │          PDF page rendered here              │  ← PDF viewer
-│  Land    │                                              │
-│  Records │          ← → zoom fit controls               │
-│  Court   │                                              │
-│  Filings │                                              │
-├──────────┴──────────────────────────────────────────────┤  ← drag to resize
-│ CATEGORY        │ DOCUMENT PAGES  (9 total)             │
-│ ─────────────── │ 1  2  3  4  5  6  7  8  9            │
-│ Land Records    │ ██ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░            │  ← Swimlane
-│ Legal Heir Cert │ ░░ ██ ░░ ░░ ░░ ░░ ░░ ░░ ░░            │     timeline
-│ Court Filings   │ ░░ ░░ ░░ ██ ██ ░░ ██ ░░ ░░            │
-└─────────────────────────────────────────────────────────┘
-```
+**Timeline View — swimlane overview of all categories across pages**
+![Timeline View](screenshots/Timeline_View.png)
+
+**Page Navigation — click any block or use arrow keys to jump to a page**
+![PDF Page Navigation](screenshots/PDF_Page_Navigate.png)
+
+**CSV File Example — the categories file format**
+![CSV File Example](screenshots/CSV_File_Example.png)
 
 ---
 
